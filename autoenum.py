@@ -44,10 +44,16 @@ def list_running_processes():
 def list_groups():
     print(run_command("groups"))
 
+def enum_user_home():
+    print_section_header("User Home Directories", 'red')
+    for(user, home) in run_command("cat /etc/passwd | cut -d: -f1,6").split('\n'):
+        print(f"{user}: {home}")
+
 if __name__ == "__main__":
     list_non_standard_users()
     check_sudo_permissions()
     list_listening_ports()
     list_cron_jobs()
     list_running_processes()
+    enum_user_home()
     list_groups()
